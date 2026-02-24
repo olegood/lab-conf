@@ -28,7 +28,12 @@ def save_config(service, environment):
 
 @app.route('/configs/<service>/<environment>/versions', methods=['GET'])
 def list_versions(service, environment):
-    raise NotImplementedError(f'GET(Versions: {service}-{environment})')
+    versions = repo.list_versions(service, environment)
+    return {
+        'service': service,
+        'environment': environment,
+        'versions': versions
+    }
 
 
 if __name__ == '__main__':

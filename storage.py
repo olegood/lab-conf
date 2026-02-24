@@ -33,3 +33,7 @@ class FileConfigStorage:
             json.dump(record, f, indent=2)
 
         return record
+
+    def list_versions(self, service: str, environment: str) -> list[str]:
+        config_path = self._config_path(service, environment)
+        return [f.stem for f in config_path.glob('*.json')]
