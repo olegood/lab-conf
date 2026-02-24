@@ -1,6 +1,9 @@
 from flask import Flask
 
+from storage import FileConfigStorage
+
 app = Flask(__name__)
+repo = FileConfigStorage(base_path='data')
 
 
 @app.route('/', methods=['GET'])
