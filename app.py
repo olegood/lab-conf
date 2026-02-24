@@ -18,17 +18,17 @@ def health():
 
 @app.route('/configs/<service>/<environment>', methods=['GET'])
 def get_config(service, environment):
-    return f'GET(Config: {service}-{environment})'
+    raise NotImplementedError(f'GET(Config: {service}-{environment})')
 
 
 @app.route('/configs/<service>/<environment>', methods=['POST'])
 def save_config(service, environment):
-    return f'POST(Config: {service}-{environment})'
+    raise NotImplementedError(f'POST(Config: {service}-{environment})')
 
 
 @app.route('/configs/<service>/<environment>/versions', methods=['GET'])
 def list_versions(service, environment):
-    return f'GET(Versions: {service}-{environment})'
+    raise NotImplementedError(f'GET(Versions: {service}-{environment})')
 
 
 if __name__ == '__main__':
