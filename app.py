@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, abort
 
+from models import ConfigCreateRequest, ConfigResponse
 from storage import FileConfigStorage
 
 app = Flask(__name__)
@@ -27,7 +28,17 @@ def get_config(service, environment):
 
 @app.post('/configs/<service>/<environment>')
 def save_config(service, environment):
-    raise NotImplementedError(f'POST(Config: {service}-{environment})')
+    payload = request.get_json()
+    if not payload:
+        abort(400, description='Invalid JSON payload')
+
+    try:
+        req = ConfigCreateRequest(**payload)
+    except Exception as e:
+        abort(400, description=str(e))
+
+    created = repo.save(service, environment, req.data, req.created_by)
+    return jsonify(ConfigResponse(**created).model_dump()), 201
 
 
 @app.get('/configs/<service>/<environment>/versions')

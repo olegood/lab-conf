@@ -3,7 +3,7 @@ import os
 import uuid
 from datetime import datetime, UTC
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 
 def _resolve_file_path(config_path: Path, version: Optional[str]) -> Optional[Path]:
@@ -25,7 +25,7 @@ class FileConfigStorage:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
-    def save(self, service: str, environment: str, config: dict[str, Any], created_by: str) -> Dict[str, Any]:
+    def save(self, service: str, environment: str, data: dict[str, Any], created_by: str) -> dict[str, Any]:
         version = str(uuid.uuid4())
         created_at = datetime.now(tz=UTC).isoformat()
 
@@ -33,7 +33,7 @@ class FileConfigStorage:
             'service': service,
             'environment': environment,
             'version': version,
-            'config': config,
+            'data': data,
             'created_at': created_at,
             'created_by': created_by
         }
