@@ -6,27 +6,27 @@ app = Flask(__name__)
 repo = FileConfigStorage(base_path='data')
 
 
-@app.route('/', methods=['GET'])
+@app.get('/')
 def index():
     return health()
 
 
-@app.route('/health', methods=['GET'])
+@app.get('/health')
 def health():
     return {"status": "UP"}
 
 
-@app.route('/configs/<service>/<environment>', methods=['GET'])
+@app.get('/configs/<service>/<environment>')
 def get_config(service, environment):
     raise NotImplementedError(f'GET(Config: {service}-{environment})')
 
 
-@app.route('/configs/<service>/<environment>', methods=['POST'])
+@app.post('/configs/<service>/<environment>')
 def save_config(service, environment):
     raise NotImplementedError(f'POST(Config: {service}-{environment})')
 
 
-@app.route('/configs/<service>/<environment>/versions', methods=['GET'])
+@app.get('/configs/<service>/<environment>/versions')
 def list_versions(service, environment):
     versions = repo.list_versions(service, environment)
     return {
