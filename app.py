@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify, abort
 
 from storage import FileConfigStorage
 
@@ -18,7 +18,11 @@ def health():
 
 @app.get('/configs/<service>/<environment>')
 def get_config(service, environment):
-    raise NotImplementedError(f'GET(Config: {service}-{environment})')
+    version = request.args.get('version')
+    config = repo.get(service, environment, version)
+    if not config:
+        abort(404)
+    return jsonify(config)
 
 
 @app.post('/configs/<service>/<environment>')
