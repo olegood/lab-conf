@@ -59,7 +59,7 @@ Optional:
 
 ```shell
 git clone https://github.com/olegood/lab-conf.git
-cd config-service
+cd lab-conf
 ```
 
 ### 2. Create virtual environment
