@@ -10,7 +10,7 @@ from models import ConfigCreateRequest, ConfigResponse
 from storage import FileConfigStorage
 
 app = Flask(__name__)
-repo = FileConfigStorage(base_path="data")
+repo = FileConfigStorage(base_path="../data")
 
 
 @app.get("/")
