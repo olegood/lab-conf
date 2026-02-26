@@ -7,6 +7,8 @@ versioning support.
 from flask import Flask, request, jsonify, abort
 from pydantic import ValidationError
 
+__version__ = "0.1.0"
+
 from models import ConfigCreateRequest, ConfigResponse
 from storage import FileConfigStorage
 
@@ -18,6 +20,12 @@ repo = FileConfigStorage(base_path="../data")
 def index():
     """Root endpoint that redirects to health check."""
     return health()
+
+
+@app.get("/version")
+def version():
+    """Get the version of the application."""
+    return {"version": __version__}
 
 
 @app.get("/health")
@@ -47,8 +55,8 @@ def get_config(service, environment):
     Raises:
         404: If configuration is not found.
     """
-    version = request.args.get("version")
-    config = repo.get(service, environment, version)
+    config_version = request.args.get("version")
+    config = repo.get(service, environment, config_version)
     if not config:
         abort(404)
     return jsonify(config)
