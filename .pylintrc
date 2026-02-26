@@ -1,0 +1,3 @@
+[MESSAGES CONTROL]
+disable=unsubscriptable-object
+disable=no-name-in-module
