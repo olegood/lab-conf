@@ -5,6 +5,7 @@ configuration data for different services and environments, with
 versioning support.
 """
 from flask import Flask, request, jsonify, abort
+from pydantic import ValidationError
 
 from models import ConfigCreateRequest, ConfigResponse
 from storage import FileConfigStorage
@@ -76,7 +77,7 @@ def save_config(service, environment):
 
     try:
         req = ConfigCreateRequest(**payload)
-    except Exception as e:
+    except ValidationError as e:
         abort(400, description=str(e))
 
     created = repo.save(service, environment, req.data, req.created_by)

@@ -94,7 +94,7 @@ class FileConfigStorage:
         }
 
         file_path = self._config_path(service, environment) / f"{version}.json"
-        with open(file_path, "w") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             json.dump(record, f, indent=2)
 
         return record
@@ -116,7 +116,7 @@ class FileConfigStorage:
         if not file_path or not file_path.exists():
             return None
 
-        with open(file_path) as file:
+        with open(file_path, encoding="utf-8") as file:
             return json.load(file)
 
     def list_versions(self, service: str, environment: str) -> list[str]:
