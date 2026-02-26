@@ -9,9 +9,9 @@ from typing import Any, Optional
 def _resolve_file_path(config_path: Path, version: Optional[str]) -> Optional[Path]:
     """Resolve the file path for a specific version or the latest version."""
     if version:
-        return config_path / f'{version}.json'
+        return config_path / f"{version}.json"
 
-    files = sorted(config_path.glob('*.json'), key=os.path.getmtime, reverse=True)
+    files = sorted(config_path.glob("*.json"), key=os.path.getmtime, reverse=True)
     return files[0] if files else None
 
 
@@ -30,16 +30,16 @@ class FileConfigStorage:
         created_at = datetime.now(tz=UTC).isoformat()
 
         record = {
-            'service': service,
-            'environment': environment,
-            'version': version,
-            'data': data,
-            'created_at': created_at,
-            'created_by': created_by
+            "service": service,
+            "environment": environment,
+            "version": version,
+            "data": data,
+            "created_at": created_at,
+            "created_by": created_by
         }
 
-        file_path = self._config_path(service, environment) / f'{version}.json'
-        with open(file_path, 'w') as f:
+        file_path = self._config_path(service, environment) / f"{version}.json"
+        with open(file_path, "w") as f:
             json.dump(record, f, indent=2)
 
         return record
@@ -56,4 +56,4 @@ class FileConfigStorage:
 
     def list_versions(self, service: str, environment: str) -> list[str]:
         config_path = self._config_path(service, environment)
-        return [f.stem for f in config_path.glob('*.json')]
+        return [f.stem for f in config_path.glob("*.json")]

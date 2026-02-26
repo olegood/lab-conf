@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 
 class ConfigCreateRequest(BaseModel):
-    data: dict[str, Any] = Field(..., description='Key-value configuration data')
+    data: dict[str, Any] = Field(..., description="Key-value configuration data")
     created_by: str
 
 
