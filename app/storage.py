@@ -66,7 +66,9 @@ class FileConfigStorage:
         path.mkdir(parents=True, exist_ok=True)
         return path
 
-    def save(self, service: str, environment: str, data: dict[str, Any], created_by: str) -> dict[str, Any]:
+    def save(
+            self, service: str, environment: str, data: dict[str, Any], created_by: str
+    ) -> dict[str, Any]:
         """Save a new configuration version.
         
         Creates a new UUID-based version and stores the configuration as a JSON file.
@@ -99,14 +101,16 @@ class FileConfigStorage:
 
         return record
 
-    def get(self, service: str, environment: str, version: Optional[str]) -> Optional[dict[str, Any]]:
+    def get(
+            self, service: str, environment: str, version: Optional[str]
+    ) -> Optional[dict[str, Any]]:
         """Retrieve a configuration version.
         
         Args:
             service: Name of the service.
             environment: Name of the environment.
             version: Optional version UUID. If None, retrieves the latest version.
-        
+
         Returns:
             Dictionary containing the configuration record, or None if not found.
         """
